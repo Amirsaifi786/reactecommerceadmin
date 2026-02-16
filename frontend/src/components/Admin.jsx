@@ -9,6 +9,13 @@ const Categories = () => <div className="p-6">📂 Categories Page</div>;
 const Media = () => <div className="p-6">🖼️ Media Library</div>;
 const Orders = () => <div className="p-6">🛒 Orders Page</div>;
 const Profile = () => <div className="p-6">👤 Profile Settings</div>;
+useEffect(() => {
+    const userInfo = localStorage.getItem("userInfo");
+    if (userInfo) {
+        navigate("/admin");
+    }
+}, []);
+
 
 const Admin = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

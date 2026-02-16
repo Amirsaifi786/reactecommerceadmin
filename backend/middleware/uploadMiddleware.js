@@ -14,9 +14,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
-// 2. Apply 'upload.single("image")' to the route
-// "image" must match the name you used in formData.append("image", image)
 router.post('/', upload.single('image'), async (req, res) => {
   try {
     // NOW req.body will contain your 'name', 'price', etc.
@@ -26,7 +23,6 @@ router.post('/', upload.single('image'), async (req, res) => {
        return res.status(400).json({ message: "Name is required" });
     }
 
-    // req.file contains the image info
     const imagePath = req.file ? req.file.path : '';
 
     // Create product in DB...

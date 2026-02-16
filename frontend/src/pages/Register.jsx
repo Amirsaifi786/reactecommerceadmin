@@ -26,7 +26,7 @@ const Register = () => {
 
       localStorage.setItem("userInfo", JSON.stringify(data));
       alert("Registration Successful");
-      navigate("/");
+      navigate("/admin");
     } catch (error) {
       alert(error.response?.data?.message || "Error during registration");
     }
@@ -96,7 +96,7 @@ const Register = () => {
 
         <div style={styles.footer}>
           <span>Already have an account? </span>
-          <Link to="/login" style={styles.link}>Log in</Link>
+          <Link to="/admin/login" style={styles.link}>Log in</Link>
         </div>
       </div>
     </div>

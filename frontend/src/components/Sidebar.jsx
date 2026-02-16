@@ -8,8 +8,7 @@ const NavItem = ({ to, icon, label, onClick }) => (
     end
     onClick={onClick}
     className={({ isActive }) =>
-      `flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
-        isActive ? "bg-blue-600 text-white shadow-lg" : "hover:bg-slate-800"
+      `flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${isActive ? "bg-blue-600 text-white shadow-lg" : "hover:bg-slate-800"
       }`
     }
   >
@@ -32,6 +31,17 @@ const Sidebar = ({ isOpen, setIsOpen }) => (
       <NavItem to="/admin/media" icon={<ImageIcon size={18} />} label="Media" onClick={() => setIsOpen(false)} />
       <NavItem to="/admin/orders" icon={<ShoppingCart size={18} />} label="Orders" onClick={() => setIsOpen(false)} />
       <NavItem to="/admin/profile" icon={<UserCircle size={18} />} label="Profile" onClick={() => setIsOpen(false)} />
+      <button
+        onClick={() => {
+          localStorage.removeItem("userInfo");
+          setIsOpen(false);
+          window.location.href = "/admin/login";
+        }}
+        className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800 w-full text-left"
+      >
+        <UserCircle size={18} />
+        <span className="font-medium">Logout</span>
+      </button>
     </nav>
   </aside>
 );

@@ -22,6 +22,7 @@ const registerUser = async (req, res) => {
     name,
     email,
     password,
+    isAdmin: true, // Set admin flag to true for all registered users
   });
 
   if (user) {
@@ -29,28 +30,36 @@ const registerUser = async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      isAdmin: user.isAdmin,
       token: generateToken(user._id),
     });
   }
 };
 
-// Login
+
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
 
-  if (user && (await user.matchPassword(password))) {
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      token: generateToken(user._id),
-    });
-  } else {
-    res.status(401).json({ message: "Invalid email or password" });
+  if (!user || !(await user.matchPassword(password))) {
+    return res.status(401).json({ message: "Invalid credentials" });
   }
+
+  // Admin check
+  if (!user.isAdmin) {
+    return res.status(403).json({ message: "Access Denied. Admin Only." });
+  }
+
+  res.json({
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    isAdmin: user.isAdmin,
+    token: generateToken(user._id),
+  });
 };
+
 
 module.exports = { registerUser, loginUser };
 

@@ -18,7 +18,7 @@ function Login() {
             });
 
             localStorage.setItem("userInfo", JSON.stringify(data));
-            navigate("/");
+            navigate("/admin");
         } catch (err) {
             setError(err.response?.data?.message || "Login Failed");
         }
@@ -55,7 +55,7 @@ function Login() {
           
 
                 <p>
-                    New User? <Link to="/register">Register Here</Link>
+                    New User? <Link to="/admin/register">Register Here</Link>
                 </p>
 
             </form>
